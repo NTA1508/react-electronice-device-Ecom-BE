@@ -35,6 +35,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         req->req.requestMatchers("/api/v1/login/**", "/api/v1/register/**")
                                 .permitAll()
+                                .requestMatchers("/api/v1/user/**")
+                                .permitAll()
                                 .requestMatchers("/api/v1/product/**")
                                 .permitAll()
                                 .anyRequest()

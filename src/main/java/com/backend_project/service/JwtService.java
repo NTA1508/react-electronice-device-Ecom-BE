@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
+import java.util.Map;
 import java.util.function.Function;
 
 @Service
@@ -49,7 +50,7 @@ public class JwtService {
     public String generateToken(User user){
         String token = Jwts
                 .builder()
-                .subject(user.getUserName())
+                .subject(user.getUserName()).claims(Map.of("id", user.getId(), "role", user.getRole()))
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + 24*60*60*1000))
                 .signWith(getSiginKey())
