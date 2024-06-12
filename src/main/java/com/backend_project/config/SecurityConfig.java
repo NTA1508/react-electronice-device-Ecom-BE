@@ -39,6 +39,8 @@ public class SecurityConfig {
                                 .permitAll()
                                 .requestMatchers("/api/v1/product/**")
                                 .permitAll()
+                                .requestMatchers("/api/v1/cart/**")
+                                .permitAll()
                                 .anyRequest()
                                 .authenticated()
                 ).userDetailsService(userDetailsImp)

@@ -65,7 +65,6 @@ public class ProductController {
     public String deleteProduct(@PathVariable int id) throws IOException{
         Optional<Product> product = productRepository.findById(id);
         Path extractPath = Paths.get(path + File.separator + product.get().getProductImage());
-        System.out.println(extractPath);
         try{
             Files.deleteIfExists(extractPath);
         }catch(Exception e){
