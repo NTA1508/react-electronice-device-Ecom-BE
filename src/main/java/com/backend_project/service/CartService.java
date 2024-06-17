@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface CartService {
     public void addToCart(int productId, String token);
     public List<Cart> getCartByUserId(String token);
+    public void deleteCart(int id);
 }

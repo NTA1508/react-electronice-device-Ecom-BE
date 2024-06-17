@@ -41,6 +41,8 @@ public class SecurityConfig {
                                 .permitAll()
                                 .requestMatchers("/api/v1/cart/**")
                                 .permitAll()
+                                .requestMatchers("/api/v1/message/**")
+                                .permitAll()
                                 .anyRequest()
                                 .authenticated()
                 ).userDetailsService(userDetailsImp)

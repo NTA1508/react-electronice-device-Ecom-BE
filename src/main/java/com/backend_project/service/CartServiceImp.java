@@ -11,10 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
-public class CartServiceimp implements CartService{
+public class CartServiceImp implements CartService{
 
     @Autowired
     private final CartRepository cartRepository;
@@ -28,7 +27,7 @@ public class CartServiceimp implements CartService{
     @Autowired
     private final JwtService jwtService;
 
-    public CartServiceimp(CartRepository cartRepository, ProductRepository productRepository, UserRepository userRepository, JwtService jwtService) {
+    public CartServiceImp(CartRepository cartRepository, ProductRepository productRepository, UserRepository userRepository, JwtService jwtService) {
         this.cartRepository = cartRepository;
         this.productRepository = productRepository;
         this.userRepository = userRepository;
@@ -49,5 +48,11 @@ public class CartServiceimp implements CartService{
     public List<Cart> getCartByUserId(String token) {
         int userId = jwtService.extractUserId(token);
         return cartRepository.findByUserId(userId);
+    }
+
+    @Override
+    public void deleteCart(int id) {
+        Cart cart = cartRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException(false, "cart not found"));
+        cartRepository.delete(cart);
     }
 }
