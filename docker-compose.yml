@@ -1,0 +1,36 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:8.0.13
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: demo4
+    ports:
+      - "3007:3306"
+    networks:
+      - app-network
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  springboot-app:
+    build: .
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+    depends_on:
+      - mysql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/demo4
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: rootpassword
+      SPRING_DATASOURCE_DRIVER-CLASS-NAME: com.mysql.cj.jdbc.Driver
+      SPRING_JPA_HIBERNATE_DDL-AUTO: update
+      SPRING_JPA_SHOW-SQL: true
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mysql-data:

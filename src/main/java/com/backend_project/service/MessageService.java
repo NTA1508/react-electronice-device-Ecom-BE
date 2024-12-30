@@ -9,4 +9,5 @@ import java.util.List;
 public interface MessageService {
     public Message sendMessage(Message message);
     public List<Message> getAllMessage();
+    public void deleteMessage(int id);
 }

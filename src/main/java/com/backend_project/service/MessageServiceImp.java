@@ -1,5 +1,6 @@
 package com.backend_project.service;
 
+import com.backend_project.exception.ResourceNotFoundException;
 import com.backend_project.model.Message;
 import com.backend_project.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +27,11 @@ public class MessageServiceImp implements MessageService{
     @Override
     public List<Message> getAllMessage() {
         return messageRepository.findAll();
+    }
+
+    @Override
+    public void deleteMessage(int id) {
+        Message message = messageRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException(false, "Message not found"));
+        messageRepository.delete(message);
     }
 }
